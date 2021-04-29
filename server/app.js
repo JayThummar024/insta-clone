@@ -15,6 +15,7 @@ mongoose.connect(
 
 app.use(express.json())
 require("./models/user")
+require("./models/post")
 app.use(require("./routes/userRoute"))
 
 

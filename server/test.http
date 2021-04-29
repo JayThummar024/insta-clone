@@ -1,8 +1,8 @@
-POST http://localhost:5000
+POST http://localhost:5000/createpost
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5MjJlYTFlMGQyMDBlYjBjNmI4ZTEiLCJpYXQiOjE2MTk2MDQ1MjR9.2iZYERhGkeAZZb_8K6QNeiOF8TmiY-ilV1mtSGvz35c
 Content-Type: application/json
 
 {
-    "name":"Jay Thummar",
-    "email":"thummar024@gmail.com",
-    "password":"123456"
+    "title":"Great",
+    "body":"Great body"
 }
