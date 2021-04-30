@@ -5,13 +5,7 @@ function SignIn() {
   return (
     <div className="card-container">
       <div className="card card-wrapper">
-        <h2 className="form-type">Login</h2>
-        <input
-          placeholder="Username"
-          type="text"
-          className="validate"
-          name="name"
-        />
+        <h2 className="form-type my-heading">Instagram</h2>
         <input
           placeholder="Email"
           type="text"
@@ -26,6 +20,7 @@ function SignIn() {
         />
 
         <Link className="waves-effect waves-light btn my-btn">Login</Link>
+        <p className="redirect">Don't have an account ? <Link to="/signup">SignUp</Link></p>
       </div>
     </div>
   );
