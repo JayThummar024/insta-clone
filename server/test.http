@@ -1,8 +1,8 @@
-POST http://localhost:5000/createpost
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5MjJlYTFlMGQyMDBlYjBjNmI4ZTEiLCJpYXQiOjE2MTk2MDQ1MjR9.2iZYERhGkeAZZb_8K6QNeiOF8TmiY-ilV1mtSGvz35c
+GET  http://localhost:5000/myposts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhhNmVmOWYwNDUwNjNkZDBjYzY5YWMiLCJpYXQiOjE2MTk2ODUxMzd9.Yw_kjjA73NvyVVxKCxdfZW6jLnLdMivOxZ3myjyz3Jc
 Content-Type: application/json
 
-{
-    "title":"Great",
-    "body":"Great body"
-}
+# {
+#     "title":"harshit title",
+#     "body":"harshit body"
+# }

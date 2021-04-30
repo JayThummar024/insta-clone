@@ -62,10 +62,6 @@ router.post("/signin", (req, res) => {
   });
 });
 
-router.get("/", requireLogin , (req,res)=>{
-  res.send("hello")
-});
-
 router.post("/createpost" , requireLogin , (req,res)=>{
   const {title , body} = req.body
 
@@ -84,6 +80,22 @@ router.post("/createpost" , requireLogin , (req,res)=>{
   .then(result=>res.json(result))
   .catch(err=>console.log(err))
 
+})
+
+router.get("/allposts", requireLogin , (req,res)=>{
+  Post.find({})
+  .populate("postedBy", "name _id")
+  .then(result=>res.json(result))
+  .catch(err=>console.log(err))
+});
+
+router.get("/myposts" , requireLogin ,(req,res)=>{
+  Post.find({postedBy:req.user._id})
+  .populate("postedBy" , "name _id")
+  .then(result=>{
+    res.json(result)
+  })
+  .catch(err=>console.log(err))
 })
 
 module.exports = router;
