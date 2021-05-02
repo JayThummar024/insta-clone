@@ -29,7 +29,6 @@ router.post("/signup", (req, res) => {
           .save()
           .then((result) => {
             res.json({ message: "Successfully Signedup" });
-            console.log(result);
           })
           .catch((err) => console.log(err));
       });

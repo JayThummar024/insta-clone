@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require("cors")
 
 const app = express();
 mongoose.connect(
@@ -14,6 +15,7 @@ mongoose.connect(
 );
 
 app.use(express.json())
+app.use(cors())
 require("./models/user")
 require("./models/post")
 app.use(require("./routes/userRoute"))

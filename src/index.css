@@ -16,7 +16,7 @@
 }
 
 .nav-wrapper ul li :hover {
-  border-bottom: 3px solid lightseagreen !important;
+  border-bottom: 4px solid lightseagreen !important;
 }
 
 .brand-logo {
@@ -142,7 +142,7 @@ br {
   }
 
   .reach {
-    margin: 0 auto;
+    margin: 0 auto 25px;
   }
 }
 
