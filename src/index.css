@@ -15,6 +15,10 @@
   color: rgb(0, 0, 0);
 }
 
+.logout-btn{
+  margin: -3px 5px auto 10px;
+}
+
 .nav-wrapper ul li :hover {
   border-bottom: 4px solid lightseagreen !important;
 }

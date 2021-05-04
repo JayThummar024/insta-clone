@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+// import {useSelector,useDispatch} from "react-redux"
+// import * as action from "../redux/actions"
 
 function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/allposts", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setPosts(result.posts);
+        console.log(result.posts);
+      });
+  }, []);
+
   return (
     <>
       <div className="home-container">
-        <div className="post">
-          <h2 className="post-username">Jay Thummar</h2>
-          <img
-            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-            alt="my-pic"
-          />
-          <p className="title">This is title</p>
-          <p className="body">This is body</p>
-        </div>
+        {posts.map((item) => {
+          return (
+            <div className="post" key={item._id}>
+              <h2 className="post-username">{item.postedBy.name}</h2>
+              <img
+                src={item.pic}
+                alt="my-pic"
+              />
+              <p className="title">{item.title}</p>
+              <p className="body">{item.body}</p>
+            </div>
+          );
+        })}
       </div>
     </>
   );

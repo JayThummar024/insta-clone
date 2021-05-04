@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     if (url) {
@@ -12,7 +14,7 @@ function CreatePost() {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("jwt"),
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
           title,
@@ -21,10 +23,10 @@ function CreatePost() {
         }),
       })
         .then((res) => res.json())
-        .then((result) => console.log(result))
+        .then((result) => history.push("/"))
         .catch((err) => console.log(err));
     }
-  }, [url,title,body]);
+  }, [url]);
 
   function postDetails() {
     const data = new FormData();
@@ -38,7 +40,6 @@ function CreatePost() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setUrl(result.url);
       })
       .catch((err) => console.log(url));
@@ -68,15 +69,16 @@ function CreatePost() {
           <div className="file-field input-field">
             <div className="btn">
               <span>File</span>
-              <input type="file" />
+              <input
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
             </div>
             <div className="file-path-wrapper">
               <input
                 className="file-path validate"
                 type="text"
                 placeholder="add image"
-                value={image}
-                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
           </div>

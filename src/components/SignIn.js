@@ -1,11 +1,14 @@
 import React ,{useState} from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useDispatch} from "react-redux"
+import {userLogin} from "../redux/actions"
 
 function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const loginUser = () => {
     fetch("http://localhost:5000/signin" , {
@@ -22,8 +25,9 @@ function SignIn() {
       if(result.error){
         alert(result.error)
       }else{
-        const token = localStorage.setItem("jwt",result.token)
-        const user = localStorage.setItem("user",JSON.stringify(result.user))
+        localStorage.setItem("jwt",result.token)
+        localStorage.setItem("user",JSON.stringify(result.user))
+        dispatch(userLogin(result.user))
         history.push("/")
       }
       

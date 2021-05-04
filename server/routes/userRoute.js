@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const  requireLogin  = require("../middleware/requireLogin");
-const Post = mongoose.model("Post")
+const requireLogin = require("../middleware/requireLogin");
+const Post = mongoose.model("Post");
 
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
@@ -61,41 +61,41 @@ router.post("/signin", (req, res) => {
   });
 });
 
-router.post("/createpost" , requireLogin , (req,res)=>{
-  const {title , body , photo} = req.body
+router.post("/createpost", requireLogin, (req, res) => {
+  const { title, body, photo } = req.body;
 
-  if(!title || !body || !photo){
-    return res.status(422).json({error:"Please!! add all the fields"})
+  if (!title || !body || !photo) {
+    return res.status(422).json({ error: "Please!! add all the fields" });
   }
-   
-  req.user.password = undefined
+
+  req.user.password = undefined;
   const post = new Post({
     title,
     body,
-    postedBy:req.user,
-    pic:photo
-  })
+    postedBy: req.user,
+    pic: photo,
+  });
 
-  post.save()
-  .then(result=>res.json(result))
-  .catch(err=>console.log(err))
-
-})
-
-router.get("/allposts", requireLogin , (req,res)=>{
-  Post.find({})
-  .populate("postedBy", "name _id")
-  .then(result=>res.json(result))
-  .catch(err=>console.log(err))
+  post
+    .save()
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
 });
 
-router.get("/myposts" , requireLogin ,(req,res)=>{
-  Post.find({postedBy:req.user._id})
-  .populate("postedBy" , "name _id")
-  .then(result=>{
-    res.json(result)
-  })
-  .catch(err=>console.log(err))
-})
+router.get("/allposts", requireLogin, (req, res) => {
+  Post.find({})
+    .populate("postedBy", "name _id")
+    .then((result) => res.json({ posts: result }))
+    .catch((err) => console.log(err));
+});
+
+router.get("/myposts", requireLogin, (req, res) => {
+  Post.find({ postedBy: req.user._id })
+    .populate("postedBy", "name _id")
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => console.log(err));
+});
 
 module.exports = router;
