@@ -186,3 +186,54 @@ br {
   font-size: 32px;
   font-weight: 500;
 }
+
+.fa-icon-heart{
+  font-size: 22px;
+  color: red;
+  margin: 10px 10px;
+  opacity: 0.8;
+}
+
+.likes {
+  font-size: 22px;
+  font-weight: 300;
+  margin: 5px 10px;
+  color: black;
+}
+
+.comment-section {
+  font-size: 22px;
+  margin: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-input{
+  width: 90% !important;
+  margin-right: 20px;
+}
+
+.comment-btn{
+  border-radius: 35px;
+}
+
+.comments-display{
+  display: flex;
+  margin: 5px 10px;
+}
+
+.postedby {
+  font-size: 18px;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+.comment{
+  font-size: 16px;
+  font-weight: 300;
+}
+
+
+
+
+
