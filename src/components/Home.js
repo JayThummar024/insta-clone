@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import * as action from "../redux/actions"
 
 function Home() {
@@ -34,7 +35,7 @@ function Home() {
     })
       .then((res) => res.json())
       .then((result) => {
-          console.log(result)
+        // console.log(result);
         const newData = posts.map((item) => {
           if (item._id === result._id) {
             return result;
@@ -90,7 +91,7 @@ function Home() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         const newData = posts.map((item) => {
           if (item._id === result._id) {
             return result;
@@ -105,13 +106,50 @@ function Home() {
       });
   };
 
+  const deletePost = (postid) => {
+    fetch(`http://localhost:5000/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+        const newData = posts.filter((item) => {
+          return item._id !== result._id;
+        });
+        setPosts(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="home-container">
         {posts.map((item) => {
           return (
             <div className="post" key={item._id}>
-              <h2 className="post-username">{item.postedBy.name}</h2>
+              <h2 className="post-username">
+                <Link className="profile-navigation"
+                  to={
+                    item.postedBy._id !== user._id
+                      ? "/profile/" + item.postedBy._id
+                      : "/profile"
+                  }
+                >
+                  {item.postedBy.name}
+                </Link>
+
+                {item.postedBy._id === user._id && (
+                  <i
+                    className="fas fa-trash delete-icon"
+                    onClick={() => deletePost(item._id)}
+                  />
+                )}
+              </h2>
               <img src={item.pic} alt="my-pic" />
 
               {item.likes.includes(user._id) ? (
@@ -145,6 +183,7 @@ function Home() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   makeComment(e.target[0].value, item._id);
+                  setText("");
                 }}
               >
                 <input
@@ -158,7 +197,7 @@ function Home() {
                 <i
                   className="fas fa-plus waves-effect waves-light btn comment-btn"
                   onClick={() => {
-                    makeComment(text, item._id)
+                    makeComment(text, item._id);
                     setText("");
                   }}
                 />

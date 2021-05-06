@@ -183,7 +183,7 @@ br {
 
 .post-username {
   margin: 10px 0 10px 10px;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
 }
 
@@ -232,6 +232,68 @@ br {
   font-size: 16px;
   font-weight: 300;
 }
+
+.delete-icon {
+  font-size: 22px;
+  color: lightseagreen;
+  float: right;
+  display: block;
+  margin-top: 7px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.profile-navigation{
+  color: black;
+  font-weight: 400;
+}
+
+@media  screen and (max-width:650px) {
+  .home-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .brand-logo {
+    margin-left: 0;
+  }
+
+}
+
+@media  screen and (max-width:400px) {
+  .home-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .post {
+    margin: 40px auto;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .post-username {
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+  
+  .body {
+    font-size: 18px;
+  }
+
+  .fa-icon-heart{
+    font-size: 18px;
+  }
+
+  .likes {
+    font-size: 18px;
+  }
+}
+
+
 
 
 

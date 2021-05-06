@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import SignUp from "./SignUp";
 import CreatePost from "./CreatePost";
 import Home from "./Home";
+import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 
@@ -25,7 +26,12 @@ function Routing() {
           <Redirect to="/signin" />
         )}
         {isLoggedIn ? (
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile" exact component={Profile} />
+        ) : (
+          <Redirect to="/signin" />
+        )}
+        {isLoggedIn ? (
+          <Route path="/profile/:id" component={UserProfile} />
         ) : (
           <Redirect to="/signin" />
         )}

@@ -108,7 +108,8 @@ router.put("/likes", requireLogin, (req, res) => {
     {
       new: true,
     }
-  ).populate("postedBy", "name _id")
+  )
+    .populate("postedBy", "name _id")
     .populate("comments.postedBy", "_id name")
     .exec((err, result) => {
       if (err) {
@@ -128,7 +129,8 @@ router.put("/unlikes", requireLogin, (req, res) => {
     {
       new: true,
     }
-  ).populate("postedBy", "name _id")
+  )
+    .populate("postedBy", "name _id")
     .populate("comments.postedBy", "_id name")
     .exec((err, result) => {
       if (err) {
@@ -161,6 +163,45 @@ router.put("/comment", requireLogin, (req, res) => {
       } else {
         res.json(result);
       }
+    });
+});
+
+router.delete("/deletepost/:postId", requireLogin, (req, res) => {
+  Post.findOne({ _id: req.params.postId })
+    .populate("postedBy", "_id")
+    .exec((err, post) => {
+      if (err || !post) {
+        res.status(422).json({ error: err });
+      }
+      if (post.postedBy._id.toString() === req.user._id.toString()) {
+        post
+          .remove()
+          .then((result) => {
+            res.json(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+});
+
+router.get("/profile/:id", requireLogin, (req, res) => {
+  User.findOne({ _id: req.params.id })
+  .select("-password")
+    .then((user) => {
+      Post.find({postedBy:req.params.id})
+      .populate("postedBy","_id name")
+      .exec((err,posts)=>{
+        if(err){
+          return res.status(422).json({error:err})
+        }else{
+          return res.json({user,posts})
+        }
+      })
+    })
+    .catch((err) => {
+      return res.status(404).json({error:"User not found"})
     });
 });
 
