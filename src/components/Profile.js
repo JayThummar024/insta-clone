@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Profile() {
   const [myposts, setMyposts] = useState([]);
   const user = useSelector((state) => state.userData);
+  console.log(user)
 
   useEffect(() => {
     fetch("http://localhost:5000/myposts", {
@@ -16,7 +17,7 @@ function Profile() {
       .then((res) => res.json())
       .then((result) => {
         setMyposts(result.myposts);
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,9 +34,9 @@ function Profile() {
         <div className="profile-info">
           <h2 className="username">{user.name}</h2>
           <div className="reach">
-            <p>{myposts.length} posts</p>
-            <p>0 followers</p>
-            <p>0 following</p>
+            <p>{myposts.length} Posts</p>
+            <p>{user.followers.length} Followers</p>
+            <p>{user.following.length} Following</p>
           </div>
         </div>
       </div>

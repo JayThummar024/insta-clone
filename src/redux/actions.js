@@ -8,4 +8,8 @@ function userLogout() {
   return { type: types.DELETE };
 }
 
-export { userLogin, userLogout };
+function update(updatedData){
+  return { type:types.UPDATE , payload:updatedData }
+}
+
+export { userLogin, userLogout, update };

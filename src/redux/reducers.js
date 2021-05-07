@@ -1,4 +1,4 @@
-import { USER , DELETE } from "./types"
+import { USER , DELETE, UPDATE } from "./types"
 
 const initialState =  {
     isLoggedIn:false,
@@ -10,6 +10,7 @@ const userReducer = (state=initialState , action) => {
     switch(action.type){
         case USER : return { isLoggedIn: true , userData:action.payload }
         case DELETE : return { isLoggedIn: false, userData:null }
+        case UPDATE : return { ...state , userData:action.payload }
         default: return state
       
     }

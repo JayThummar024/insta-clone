@@ -15,12 +15,8 @@
   color: rgb(0, 0, 0);
 }
 
-.logout-btn{
+.logout-btn {
   margin: -3px 5px auto 10px;
-}
-
-.nav-wrapper ul li :hover {
-  border-bottom: 4px solid lightseagreen !important;
 }
 
 .brand-logo {
@@ -187,7 +183,7 @@ br {
   font-weight: 500;
 }
 
-.fa-icon-heart{
+.fa-icon-heart {
   font-size: 22px;
   color: red;
   margin: 10px 10px;
@@ -208,16 +204,16 @@ br {
   justify-content: space-between;
 }
 
-.comment-input{
+.comment-input {
   width: 90% !important;
   margin-right: 20px;
 }
 
-.comment-btn{
+.comment-btn {
   border-radius: 35px;
 }
 
-.comments-display{
+.comments-display {
   display: flex;
   margin: 5px 10px;
 }
@@ -228,7 +224,7 @@ br {
   margin-right: 10px;
 }
 
-.comment{
+.comment {
   font-size: 16px;
   font-weight: 300;
 }
@@ -243,12 +239,20 @@ br {
   cursor: pointer;
 }
 
-.profile-navigation{
+.profile-navigation {
   color: black;
   font-weight: 400;
 }
 
-@media  screen and (max-width:650px) {
+.follow-btn {
+  margin-top: 20px;
+  font-size: 14px;
+  border-radius: 30px;
+}
+
+
+
+@media screen and (max-width: 800px) {
   .home-container {
     width: 90%;
     margin: 0 auto;
@@ -258,14 +262,18 @@ br {
     margin-left: 0;
   }
 
+  .follow-btn {
+    margin-bottom: 30px;
+    margin-top: 0;
+  }
 }
 
-@media  screen and (max-width:400px) {
+@media screen and (max-width: 400px) {
   .home-container {
     width: 100%;
     margin: 0 auto;
   }
-  
+
   .post {
     margin: 40px auto;
     border-bottom: 1px solid lightgrey;
@@ -279,23 +287,21 @@ br {
   .title {
     font-size: 20px;
   }
-  
+
   .body {
     font-size: 18px;
   }
 
-  .fa-icon-heart{
+  .fa-icon-heart {
     font-size: 18px;
   }
 
   .likes {
     font-size: 18px;
   }
+
+  .follow-btn {
+    margin-bottom: 30px;
+    margin-top: 0;
+  }
 }
-
-
-
-
-
-
-
