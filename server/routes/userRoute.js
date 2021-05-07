@@ -235,6 +235,7 @@ router.put("/follow", requireLogin, (req, res) => {
     }
   );
 });
+
 router.put("/unfollow", requireLogin, (req, res) => {
   User.findByIdAndUpdate(
     req.body.unfollowId,
@@ -264,6 +265,14 @@ router.put("/unfollow", requireLogin, (req, res) => {
         });
     }
   );
+});
+
+router.get("/following", requireLogin, (req, res) => {
+  Post.find({postedBy:{$in:req.user.following}})
+    .populate("postedBy", "name _id")
+    .populate("comments.postedBy", "_id name")
+    .then((result) => res.json({ posts: result }))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@ import Home from "./Home";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+import MyFollowing from "./MyFollowing";
 
 function Routing() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -32,6 +33,11 @@ function Routing() {
         )}
         {isLoggedIn ? (
           <Route path="/profile/:id" component={UserProfile} />
+        ) : (
+          <Redirect to="/signin" />
+        )}
+        {isLoggedIn ? (
+          <Route path="/following" component={MyFollowing} />
         ) : (
           <Redirect to="/signin" />
         )}

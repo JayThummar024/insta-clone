@@ -18,6 +18,9 @@ function NavBar() {
     if (isLoggedIn) {
       return [
         <li key="1">
+          <Link to="/following">My Following</Link>
+        </li>,
+        <li key="1">
           <Link to="/profile">Profile</Link>
         </li>,
         <li key="2">
