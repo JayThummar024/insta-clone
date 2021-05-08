@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 function SignUp() {
@@ -6,8 +6,24 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState(undefined);
+
+  useEffect(() => {
+    if (url) {
+      uploadFields();
+    } 
+  }, [url]);
 
   const signUpUser = () => {
+    if(image){
+      uploadProfilePic()
+    }else{
+      uploadFields()
+    }
+  }
+
+  const uploadFields = () => {
     fetch("http://localhost:5000/signup", {
       method: "post",
       headers: {
@@ -17,6 +33,7 @@ function SignUp() {
         name,
         email,
         password,
+        profilePic:url
       }),
     })
       .then((res) => res.json())
@@ -24,12 +41,29 @@ function SignUp() {
         console.log(result);
         if (result.error) {
           alert(result.error);
-        } else if(result.messege) {
+        } else if (result.messege) {
           alert(result.messege);
         } else {
-          alert(result.message)
+          alert(result.message);
           history.push("/signin");
         }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const uploadProfilePic = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "insta-clone");
+    data.append("cloud_name", "jay-cloud024");
+
+    fetch("https://api.cloudinary.com/v1_1/jay-cloud024/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setUrl(result.url);
       })
       .catch((err) => console.log(err));
   };
@@ -68,6 +102,19 @@ function SignUp() {
           }}
           name="password"
         />
+        <div className="file-field input-field">
+          <div className="btn">
+            <span>File</span>
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          </div>
+          <div className="file-path-wrapper">
+            <input
+              className="file-path validate"
+              type="text"
+              placeholder="add image"
+            />
+          </div>
+        </div>
 
         <button
           type="submit"

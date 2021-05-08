@@ -26,7 +26,7 @@ function CreatePost() {
         .then((result) => history.push("/"))
         .catch((err) => console.log(err));
     }
-  }, [url]);
+  }, [url , body , title , history]);
 
   function postDetails() {
     const data = new FormData();
@@ -42,7 +42,7 @@ function CreatePost() {
       .then((result) => {
         setUrl(result.url);
       })
-      .catch((err) => console.log(url));
+      .catch((err) => console.log(err));
   }
 
   return (

@@ -1,23 +1,23 @@
 import React from "react";
-import { Link , useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogout } from "../redux/actions";
 
 function NavBar() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   function logoutUser() {
     localStorage.clear();
     dispatch(userLogout());
-    history.push("/signin")
+    history.push("/signin");
   }
 
   function renderNavLinks() {
     if (isLoggedIn) {
       return [
-        <li key="1">
+        <li key="6">
           <Link to="/following">My Following</Link>
         </li>,
         <li key="1">
@@ -26,13 +26,13 @@ function NavBar() {
         <li key="2">
           <Link to="/createpost">Create Post</Link>
         </li>,
-          <button key="5"
-            className="waves-effect waves-light btn logout-btn"
-            onClick={logoutUser}
-          >
-            Logout
-          </button>
-        
+        <button
+          key="5"
+          className="waves-effect waves-light btn logout-btn"
+          onClick={logoutUser}
+        >
+          Logout
+        </button>,
       ];
     } else {
       return [
@@ -50,7 +50,7 @@ function NavBar() {
     <>
       <nav>
         <div className="nav-wrapper">
-          <Link to={isLoggedIn ? "/" : "/signin"} className="brand-logo">
+          <Link to={isLoggedIn ? "/" : "/signin"} className="brand-logo left">
             Instagram
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">

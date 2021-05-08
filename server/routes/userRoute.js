@@ -8,7 +8,7 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 
 router.post("/signup", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, profilePic } = req.body;
 
   if (!name || !email || !password) {
     return res.status(422).json({ error: "Please! add all the fields" });
@@ -23,6 +23,7 @@ router.post("/signup", (req, res) => {
           name,
           email,
           password: hashedPassword,
+          profilePic,
         });
 
         user
@@ -53,8 +54,18 @@ router.post("/signin", (req, res) => {
             { _id: foundUser._id },
             process.env.JWT_SECRET
           );
-          const { name, email, _id, followers, following } = foundUser;
-          res.json({ token, user: { name, email, _id, followers, following } });
+          const {
+            name,
+            email,
+            _id,
+            followers,
+            following,
+            profilePic,
+          } = foundUser;
+          res.json({
+            token,
+            user: { name, email, _id, followers, following, profilePic },
+          });
         }
       });
     }
@@ -258,7 +269,7 @@ router.put("/unfollow", requireLogin, (req, res) => {
       )
         .select("-password")
         .then((result) => {
-          res.json(result );
+          res.json(result);
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
@@ -268,11 +279,26 @@ router.put("/unfollow", requireLogin, (req, res) => {
 });
 
 router.get("/following", requireLogin, (req, res) => {
-  Post.find({postedBy:{$in:req.user.following}})
+  Post.find({ postedBy: { $in: req.user.following } })
     .populate("postedBy", "name _id")
     .populate("comments.postedBy", "_id name")
     .then((result) => res.json({ posts: result }))
     .catch((err) => console.log(err));
+});
+
+router.put("/updatedp", requireLogin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { profilePic: req.body.profilePic } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+      }
+    }
+  ).select("-password")
 });
 
 module.exports = router;
